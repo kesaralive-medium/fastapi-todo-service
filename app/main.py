@@ -2,6 +2,7 @@ import os
 import uvicorn
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
@@ -11,6 +12,18 @@ app = FastAPI(title="Todo API Service")
 
 # add app routers
 app.include_router(todo_router, tags=["todos"])
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")

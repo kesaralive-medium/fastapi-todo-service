@@ -65,7 +65,8 @@ def delete_todo(request: Request, todo_id: uuid.UUID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found.")
 
 
-@router.post("/{todo_id}/complete", response_description="complete a todo", response_model=GetTodo)
+@router.post("/{todo_id}/complete", response_description="complete a todo", status_code=status.HTTP_200_OK,
+             response_model=GetTodo)
 def complete_todo(request: Request, todo_id: uuid.UUID):
     todo_id = str(todo_id)
     update_query = {
@@ -79,7 +80,8 @@ def complete_todo(request: Request, todo_id: uuid.UUID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found.")
 
 
-@router.post("/{todo_id}/incomplete", response_description="withdraw a todo", response_model=GetTodo)
+@router.post("/{todo_id}/incomplete", response_description="withdraw a todo", status_code=status.HTTP_200_OK,
+             response_model=GetTodo)
 def withdraw_todo(request: Request, todo_id: uuid.UUID):
     todo_id = str(todo_id)
     update_query = {
